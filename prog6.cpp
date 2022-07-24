@@ -79,6 +79,10 @@ void display()
 
 void init()
 {
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(500, 500);
+    // glutInitWindowPosition(0, 0);
+    glutCreateWindow("Teapot on a table");
     glClearColor(0, 0, 0, 1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -89,16 +93,12 @@ void init()
     glShadeModel(GL_SMOOTH);
     glEnable(GL_NORMALIZE);
     glEnable(GL_DEPTH_TEST);
+    glutDisplayFunc(display);
+    glutMainLoop();
 }
 
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(500, 500);
-    // glutInitWindowPosition(0, 0);
-    glutCreateWindow("Teapot on a table");
     init();
-    glutDisplayFunc(display);
-    glutMainLoop();
 }

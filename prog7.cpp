@@ -45,7 +45,7 @@ void divideTriangle(point a, point b, point c, int n)
         glFlush();
     }
     else
-        (drawTriangle(a, b, c));
+        drawTriangle(a, b, c);
 }
 
 void drawPartTetrahedron(int r, int g, int b, int i, int j, int k)
@@ -76,14 +76,15 @@ void myReshape(int w, int h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     if (w <= h)
-        glOrtho(-2, 2, -2 * (GLfloat)h / (GLfloat)w, 2 * (GLfloat)h / (GLfloat)w, -10, 10);
+        glOrtho(-2, 2, -2 * h / w, 2 * h / w, -10, 10);
     else
-        glOrtho(-2 * (GLfloat)w / (GLfloat)h, 2 * (GLfloat)w / (GLfloat)h, -2, 2, -10, 10);
+        glOrtho(-2 * w / h, 2 * w / h, -2, 2, -10, 10);
     glMatrixMode(GL_MODELVIEW);
     glutPostRedisplay();
 }
 
-void init(){
+void init()
+{
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutCreateWindow(" 3D Sierpinski gasket");
     glutReshapeFunc(myReshape);
