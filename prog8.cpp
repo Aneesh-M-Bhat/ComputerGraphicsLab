@@ -58,13 +58,14 @@ void bezier()
 
 void update()
 {
-    controlPts[1].x += 50 * sin(theta * PI / 180.0);
-    controlPts[1].y += 25 * sin(theta * PI / 180.0);
-    controlPts[2].x -= 50 * sin((theta + 30) * PI / 180.0);
-    controlPts[2].y -= 50 * sin((theta + 30) * PI / 180.0);
-    controlPts[3].x -= 25 * sin((theta - 30) * PI / 180.0);
-    controlPts[3].y += sin((theta - 30) * PI / 180.0);
-    theta += 2;
+    float temp = 25 * sin(theta * PI / 180.0);
+    controlPts[1].x += temp;
+    controlPts[1].y += temp;
+    controlPts[2].x -= temp;
+    controlPts[2].y -= temp;
+    controlPts[3].x -= temp;
+    controlPts[3].y += temp;
+    theta += 0.2;
 }
 
 void drawFlagBlock(float r, float g, float b)
@@ -118,19 +119,19 @@ void display()
 
 void init()
 {
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowPosition(0, 0);
+    glutInitWindowSize(500, 500);
+    glutCreateWindow("Bezier Curve");
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0, 500, 0, 500);
+    glutDisplayFunc(display);
+    glutMainLoop();
 }
 
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowPosition(0, 0);
-    glutInitWindowSize(500, 500);
-    glutCreateWindow("Bezier Curve");
     init();
-    glutDisplayFunc(display);
-    glutMainLoop();
 }
