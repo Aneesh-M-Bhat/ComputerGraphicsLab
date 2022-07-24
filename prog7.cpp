@@ -6,6 +6,7 @@ struct point
 {
     GLfloat x, y, z;
 };
+
 point v[4] = {{0, 0, 1}, {0, 1, 0}, {-1, -0.5, 0}, {1, -0.5, 0}};
 int n;
 
@@ -81,11 +82,8 @@ void myReshape(int w, int h)
     glMatrixMode(GL_MODELVIEW);
     glutPostRedisplay();
 }
-int main(int argc, char **argv)
-{
-    printf("No of Recursive steps/Division: ");
-    scanf("%d", &n);
-    glutInit(&argc, argv);
+
+void init(){
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutCreateWindow(" 3D Sierpinski gasket");
     glutReshapeFunc(myReshape);
@@ -93,5 +91,12 @@ int main(int argc, char **argv)
     glEnable(GL_DEPTH_TEST);
     glClearColor(1, 1, 1, 0);
     glutMainLoop();
-    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    printf("No of Recursive steps/Division: ");
+    scanf("%d", &n);
+    glutInit(&argc, argv);
+    init();
 }

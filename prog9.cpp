@@ -4,8 +4,10 @@
 #include <GL/glut.h>
 
 float x1 = 200, y1 = 200, x2 = 100, y2 = 300, x3 = 200, y3 = 400, x4 = 300, y4 = 300;
-
-void swap(float *a,float *b){
+int menuOption = 0;
+bool check = false;
+void swap(float *a, float *b)
+{
     float temp = *a;
     *a = *b;
     *b = temp;
@@ -16,8 +18,8 @@ void edgeDetect(float x1, float y1, float x2, float y2, int *leftEdge, int *righ
     float slope, x, temp;
     if ((y2 - y1) < 0) // decide where to start
     {
-        swap(&y1,&y2);
-        swap(&x1,&x2);
+        swap(&y1, &y2);
+        swap(&x1, &x2);
     }
     if ((y2 - y1) != 0)
         slope = (x2 - x1) / (y2 - y1);
@@ -78,23 +80,43 @@ void display()
     glVertex2f(x3, y3);
     glVertex2f(x4, y4);
     glEnd();
-    scanfill();
+    if (menuOption == 1)
+        scanfill();
+    glFlush();
+}
+
+void fillMenu(int option)
+{
+    if (option == 1)
+        menuOption = 1;
+    if (option == 2)
+        menuOption = 2;
+    glutPostRedisplay();
+}
+
+void createMenu()
+{
+    glutCreateMenu(fillMenu);
+    glutAddMenuEntry("Fill", 1);
+    glutAddMenuEntry("Empty", 2);
+    glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
 void init()
 {
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(500, 500);
+    // glutInitWindowPosition(0, 0);
+    glutCreateWindow("Filling a Polygon using Scan-line Algorithm");
     glClearColor(1, 1, 1, 1);
     gluOrtho2D(0, 499, 0, 499);
+    glutDisplayFunc(display);
+    createMenu();
+    glutMainLoop();
 }
 
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowSize(500, 500);
-    // glutInitWindowPosition(0, 0);
-    glutCreateWindow("Filling a Polygon using Scan-line Algorithm");
     init();
-    glutDisplayFunc(display);
-    glutMainLoop();
 }
